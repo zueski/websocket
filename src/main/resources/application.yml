@@ -1,0 +1,10 @@
+spring:
+  main:
+    web-application-type: reactive
+  banner:
+    charset: UTF-8 # Banner file encoding.
+    location: classpath:banner.txt # Banner text resource location.
+
+logging:
+  level:
+    ROOT: ERROR
