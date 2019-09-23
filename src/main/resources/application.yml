@@ -8,3 +8,13 @@ spring:
 logging:
   level:
     ROOT: ERROR
+    com.amway.integration.mashery: INFO
+  path: logs
+  fileNamePattern: websocket-%i.log
+  
+log4j:
+  logger:
+    httpclient.wire.header: TRACE
+    httpclient.wire.content: TRACE
+    org.apache.commons.http: TRACE
+    org.elasticsearch: TRACE

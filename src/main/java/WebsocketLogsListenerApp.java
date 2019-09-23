@@ -11,9 +11,15 @@ import org.springframework.boot.ApplicationRunner;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 @SpringBootApplication
 public class WebsocketLogsListenerApp implements ApplicationRunner
 {
+	private static final Logger LOGGER = LoggerFactory.getLogger(WebsocketLogsListenerApp.class);
+	
 	@Value("${websocket.url}")
 	private String url;
 	
@@ -32,11 +38,12 @@ public class WebsocketLogsListenerApp implements ApplicationRunner
 		// abort if config not set
 		if(url == null || url.length() < 3)
 		{
-			System.err.println("Missing config property mashery.url, exiting!");
+			LOGGER.error("Missing config property mashery.url, exiting!");
 			System.exit(1);
 		}
 		// open websocket
 		final WebsocketClientEndpoint clientEndPointclientEndPoint = new WebsocketClientEndpoint(new URI(url), asynctimeoutms, sessiontimeoutms);
+		
 		// always keep running
 		while(true)
 		{
@@ -45,7 +52,7 @@ public class WebsocketLogsListenerApp implements ApplicationRunner
 			{
 				clientEndPointclientEndPoint.sendPing(); 
 			} catch(IOException ioe) {
-				System.err.println("Unable to ping: " + ioe);
+				LOGGER.error("Unable to ping", ioe);
 			}
 		}
 	}
